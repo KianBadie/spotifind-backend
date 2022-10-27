@@ -5,7 +5,7 @@ require('dotenv').config();
 const PORT = process.env.PORT || 8000;
 const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
-const REDIRECT_URI = 'http://localhost:8000/callback';
+const REDIRECT_URI = 'http://localhost:8000/auth/callback';
 
 const app = express();
 
@@ -13,7 +13,7 @@ app.get('/', (req, res) => {
     res.send('Hello world');
 });
 
-app.get('/login', (req, res) => {
+app.get('/auth/login', (req, res) => {
 
     const params = new URLSearchParams({
         response_type: 'code',
@@ -26,7 +26,7 @@ app.get('/login', (req, res) => {
 
 });
 
-app.get('/callback', (req, res) => {
+app.get('/auth/callback', (req, res) => {
 
     const authOptions = {
         method: 'POST',
