@@ -5,9 +5,11 @@ require('dotenv').config();
 const PORT = process.env.PORT || 8000;
 const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
-const REDIRECT_URI = 'http://localhost:8000/auth/callback';
+const REDIRECT_URI = 'http://localhost:8000/';
 
 const app = express();
+
+app.use(express.json());
 
 app.get('/', (req, res) => {
     res.send('Hello world');
@@ -26,7 +28,9 @@ app.get('/auth/login', (req, res) => {
 
 });
 
-app.get('/auth/callback', (req, res) => {
+app.post('/auth/token', (req, res) => {
+
+    const code = req.body.code;
 
     const authOptions = {
         method: 'POST',
@@ -36,7 +40,7 @@ app.get('/auth/callback', (req, res) => {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
         data: {
-            code: req.query.code,
+            code: code,
             redirect_uri: REDIRECT_URI,
             grant_type: 'authorization_code'
         }
@@ -44,7 +48,7 @@ app.get('/auth/callback', (req, res) => {
 
     axios.request(authOptions)
         .then((authRes) => {
-            console.log(authRes.data);
+            res.json(authRes.data);
         })
         .catch((err) => {
             console.log(err);
