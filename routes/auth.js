@@ -22,7 +22,7 @@ router.get('/login', (req, res) => {
 
 });
 
-router.post('/token', (req, res) => {
+router.post('/token', (req, res, next) => {
 
     const code = req.body.code;
 
@@ -44,9 +44,7 @@ router.post('/token', (req, res) => {
         .then((authRes) => {
             res.json(authRes.data);
         })
-        .catch((err) => {
-            console.log(err);
-        });
+        .catch(next);
 
 });
 
