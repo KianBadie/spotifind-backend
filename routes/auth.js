@@ -31,7 +31,7 @@ router.get('/login', (req, res) => {
 router.post('/token', (req, res, next) => {
 
     if(req.body.state !== req.cookies.state) {
-        res.redirect('/');
+        return res.status(500).end();
     }
 
     res.clearCookie('state');
