@@ -1,5 +1,6 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
+const helmet = require('helmet');
 require('dotenv').config();
 
 const indexRouter = require('./routes/index');
@@ -9,6 +10,7 @@ const PORT = process.env.PORT || 8000;
 
 const app = express();
 
+app.use(helmet());
 app.use(cookieParser());
 app.use(express.json());
 
