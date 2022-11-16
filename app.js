@@ -10,9 +10,9 @@ const PORT = process.env.PORT || 8000;
 
 const app = express();
 
-app.use(cors({
-    origin: 'https://trulyfound.netlify.app'
-}));
+// app.use(cors({
+//     origin: 'https://trulyfound.netlify.app'
+// }));
 
 app.use(helmet());
 app.use(cookieParser());
